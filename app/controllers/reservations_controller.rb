@@ -7,12 +7,12 @@ class ReservationsController < ApplicationController
   end
 
   def take
-    book.take(current_user) if book.can_take?(current_user)
+    reservation_handler.take(book)
     redirect_to(book_path(book.id))
   end
 
   def give_back
-    book.give_back if book.can_give_back?(current_user)
+    reservation_handler.give_back(book)
     redirect_to(book_path(book.id))
   end
 
@@ -24,6 +24,10 @@ class ReservationsController < ApplicationController
   def users_reservations
   end
 
+  def can_reserve?(user)
+    reservations.find_by(user: user, status: 'RESERVED').nil?
+  end
+
   private
 
   def book
@@ -32,5 +36,9 @@ class ReservationsController < ApplicationController
 
   def load_user
     @user = User.find(params[:user_id])
+  end
+
+  def reservation_handler
+    @reservation_handler ||= ::ReservationsHandler.new(current_user)
   end
 end
