@@ -70,41 +70,9 @@ RSpec.describe "Routes to books" do
   }
 
   it {
-    expect(get: 'books/1/edit').to route_to({
-      "controller" => "books",
-      "action" => "edit",
-      "id" => "1"
-    })
-  }
-
-  it {
     expect(get: 'books/1').to route_to({
       "controller" => "books",
       "action" => "show",
-      "id" => "1"
-    })
-  }
-
-  it {
-    expect(put: 'books/1').to route_to({
-      "controller" => "books",
-      "action" => "update",
-      "id" => "1"
-    })
-  }
-
-  it {
-    expect(patch: 'books/1').to route_to({
-      "controller" => "books",
-      "action" => "update",
-      "id" => "1"
-    })
-  }
-
-  it {
-    expect(delete: 'books/1').to route_to({
-      "controller" => "books",
-      "action" => "destroy",
       "id" => "1"
     })
   }
